@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Share — MyBlog{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h2>Share Post</h2>
+  <p class="subtitle">{{ post.title }}</p>
+</div>
+{% if sent %}
+  <div style="text-align:center;padding:4rem 2rem;">
+    <div style="font-size:2.8rem;margin-bottom:1rem;">✅</div>
+    <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:0.5rem;">Email sent!</h3>
+    <p style="color:var(--text-3);margin-bottom:1.5rem;">Your recommendation has been delivered.</p>
+    <a href="{{ post.get_absolute_url }}" class="btn-primary-custom">Back to Post</a>
+  </div>
+{% else %}
+  <div class="form-card" style="max-width:540px;">
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-field-wrap">
+          <label class="form-label-custom">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}<span class="form-error">{{ field.errors|striptags }}</span>{% endif %}
+        </div>
+      {% endfor %}
+      <div class="d-flex gap-2 justify-content-end mt-3">
+        <a href="{{ post.get_absolute_url }}" class="btn-ghost">Cancel</a>
+        <button type="submit" class="btn-primary-custom">Send Email →</button>
+      </div>
+    </form>
+  </div>
+{% endif %}
+{% endblock %}

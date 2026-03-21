@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Search — MyBlog{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h2>Search</h2>
+  {% if query %}
+    <p class="subtitle">{{ results.count }} result{{ results.count|pluralize }} for "{{ query }}"</p>
+  {% else %}
+    <p class="subtitle">Find posts by title, content, or tag</p>
+  {% endif %}
+</div>
+
+<form method="get" action="{% url 'blog:post_search' %}" style="display:flex;gap:0.6rem;margin-bottom:2rem;max-width:520px;">
+  <input type="search" name="query" placeholder="Search posts…" value="{{ query|default:'' }}" style="flex:1;">
+  <button type="submit" class="btn-primary-custom">Search</button>
+</form>
+
+{% if query %}
+  {% for post in results %}
+<div class="post-card" data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+    <a href="{{ post.get_absolute_url }}" class="post-card-title">{{ post.title }}</a>
+    <div class="post-meta mb-2">
+      <a href="{% url 'blog:user_profile' post.author.username %}">{{ post.author.username }}</a>
+      <span class="post-meta-dot">●</span>
+      <span>{{ post.publish|date:"M d, Y" }}</span>
+    </div>
+    <p class="post-excerpt">{{ post.body|truncatewords:20 }}</p>
+  </div>
+  {% empty %}
+  <div class="empty-state">
+    <div class="empty-state-icon">🔍</div>
+    <h3>No results found</h3>
+    <p>Try different keywords or check spelling.</p>
+  </div>
+  {% endfor %}
+{% endif %}
+{% endblock %}

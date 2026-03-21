@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}{{ profile_user.username }} — MyBlog{% endblock %}
+{% block content %}
+<div class="profile-header">
+  <div class="d-flex align-items-start gap-3 flex-wrap">
+    <div class="profile-avatar">{{ profile_user.username|first|upper }}</div>
+    <div style="flex:1;">
+      <h2 style="font-size:1.7rem;font-weight:800;letter-spacing:-0.03em;">{{ profile_user.username }}</h2>
+      {% if profile_user.get_full_name %}
+        <p style="color:var(--text-3);font-size:0.85rem;margin-top:0.1rem;">{{ profile_user.get_full_name }}</p>
+      {% endif %}
+      <p style="color:var(--text-3);font-size:0.75rem;font-weight:600;margin-top:0.35rem;">
+        Member since {{ profile_user.date_joined|date:"M Y" }}
+      </p>
+      <div class="d-flex gap-4 mt-3">
+        <div class="profile-stat">
+          <div class="profile-stat-num">{{ posts.count }}</div>
+          <div class="profile-stat-label">Posts</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-num">{{ followers_count }}</div>
+          <div class="profile-stat-label">Followers</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-num">{{ following_count }}</div>
+          <div class="profile-stat-label">Following</div>
+        </div>
+      </div>
+    </div>
+    {% if request.user.is_authenticated and request.user != profile_user %}
+      <div>
+        {% if is_following %}
+          <a href="{% url 'blog:follow_user' profile_user.username %}" class="btn-ghost" style="border-color:rgba(99,102,241,0.4);color:var(--accent-hover);">
+            ✓ Following
+          </a>
+        {% else %}
+          <a href="{% url 'blog:follow_user' profile_user.username %}" class="btn-primary-custom">+ Follow</a>
+        {% endif %}
+      </div>
+    {% elif request.user == profile_user %}
+      <a href="{% url 'blog:settings' %}" class="btn-ghost">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+        Settings
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="section-divider">Posts by {{ profile_user.username }}</div>
+
+{% for post in posts %}
+<div class="post-card" data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+  <a href="{{ post.get_absolute_url }}" class="post-card-title">{{ post.title }}</a>
+  <div class="post-meta mb-2">
+    <span>{{ post.publish|date:"M d, Y" }}</span>
+    <span class="post-meta-dot">●</span>
+    <span>❤ {{ post.total_likes }}</span>
+    <span class="post-meta-dot">●</span>
+    <span>💬 {{ post.comments.count }}</span>
+  </div>
+  <p class="post-excerpt">{{ post.body|truncatewords:18 }}</p>
+  <div class="d-flex gap-1 flex-wrap mt-1">
+    {% for tag in post.tags.all %}
+      <a href="{% url 'blog:post_list_by_tag' tag.slug %}" class="tag-pill">{{ tag }}</a>
+    {% endfor %}
+  </div>
+</div>
+{% empty %}
+<div class="empty-state">
+  <div class="empty-state-icon">✍️</div>
+  <h3>No posts yet</h3>
+  <p>{{ profile_user.username }} hasn't published anything.</p>
+</div>
+{% endfor %}
+{% endblock %}

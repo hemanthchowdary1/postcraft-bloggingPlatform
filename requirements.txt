@@ -1,0 +1,8 @@
+asgiref==3.11.1
+Django==6.0.3
+django-taggit==6.1.0
+dnspython==2.8.0
+pillow==12.1.1
+python-decouple==3.8
+python-dotenv==1.2.2
+sqlparse==0.5.5

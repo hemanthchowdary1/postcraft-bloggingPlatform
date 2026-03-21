@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Edit Post — MyBlog{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h2>Edit Post</h2>
+  <p class="subtitle"><a href="{{ post.get_absolute_url }}" style="color:var(--text-3);">← Back to post</a></p>
+</div>
+<div class="form-card" style="max-width:740px;">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-field-wrap">
+        <label class="form-label-custom">{{ field.label }}</label>
+        {% if field.name == 'image' and post.image %}
+          <img src="{{ post.image.url }}" alt="Current" class="image-preview">
+          <p style="font-size:0.72rem;color:var(--text-3);margin-bottom:0.4rem;">Upload a new image to replace (optional)</p>
+        {% endif %}
+        {{ field }}
+        {% if field.errors %}<span class="form-error">{{ field.errors|striptags }}</span>{% endif %}
+        {% if field.help_text %}<span style="font-size:0.72rem;color:var(--text-3);display:block;margin-top:0.2rem;">{{ field.help_text }}</span>{% endif %}
+      </div>
+    {% endfor %}
+    <div class="d-flex gap-2 justify-content-end mt-3">
+      <a href="{{ post.get_absolute_url }}" class="btn-ghost">Cancel</a>
+      <button type="submit" class="btn-primary-custom">Save Changes</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

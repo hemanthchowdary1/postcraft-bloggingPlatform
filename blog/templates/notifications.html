@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Notifications — MyBlog{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h2>Notifications</h2>
+  <p class="subtitle">Your latest activity</p>
+</div>
+<div class="notif-list">
+  {% for notif in notifications %}
+  <div class="notif-item {% if not notif.is_read %}unread{% endif %}">
+    <div class="notif-icon">
+      {% if notif.notif_type == "LK" %}❤️{% elif notif.notif_type == "CM" %}💬{% else %}👤{% endif %}
+    </div>
+    <div style="flex:1;">
+      <div class="notif-text">
+        <a href="{% url 'blog:user_profile' notif.sender.username %}" style="font-weight:700;color:var(--accent-hover);">
+          {{ notif.sender.username }}
+        </a>
+        {{ notif.get_notif_type_display }}
+        {% if notif.post %}
+          — <a href="{{ notif.post.get_absolute_url }}" style="color:var(--text);">{{ notif.post.title|truncatechars:50 }}</a>
+        {% endif %}
+      </div>
+      <div class="notif-time">{{ notif.created|timesince }} ago</div>
+    </div>
+    {% if not notif.is_read %}<div class="notif-unread-dot"></div>{% endif %}
+  </div>
+  {% empty %}
+  <div class="empty-state" style="padding:3rem;">
+    <div class="empty-state-icon">🔔</div>
+    <h3>All caught up</h3>
+    <p>No notifications yet.</p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

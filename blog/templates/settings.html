@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Settings — MyBlog{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h2>Settings</h2>
+  <p class="subtitle">Manage your account</p>
+</div>
+
+<div class="settings-tabs">
+  <a href="?tab=profile" class="settings-tab {% if active_tab == 'profile' %}active{% endif %}">Profile</a>
+  <a href="?tab=password" class="settings-tab {% if active_tab == 'password' %}active{% endif %}">Password</a>
+</div>
+
+<div style="max-width:540px;">
+  {% if active_tab == 'profile' %}
+  <div class="form-card">
+    <h5 style="font-size:1rem;font-weight:700;margin-bottom:1.5rem;letter-spacing:-0.02em;">Profile Information</h5>
+    <form method="post">
+      {% csrf_token %}
+      {% for field in profile_form %}
+        <div class="form-field-wrap">
+          <label class="form-label-custom">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}<span class="form-error">{{ field.errors|striptags }}</span>{% endif %}
+        </div>
+      {% endfor %}
+      <div class="d-flex justify-content-end mt-3">
+        <button type="submit" name="update_profile" class="btn-primary-custom">Save Profile</button>
+      </div>
+    </form>
+  </div>
+  <div style="margin-top:1.2rem;padding:1.1rem 1.25rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);">
+    <p style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:var(--text-3);margin-bottom:0.75rem;">Quick Links</p>
+    <div class="d-flex gap-2 flex-wrap">
+      <a href="{% url 'blog:user_profile' request.user.username %}" class="btn-ghost" style="font-size:0.8rem;padding:0.35rem 0.9rem;">View Profile</a>
+      <a href="{% url 'blog:my_bookmarks' %}" class="btn-ghost" style="font-size:0.8rem;padding:0.35rem 0.9rem;">Bookmarks</a>
+      <a href="{% url 'blog:create_post' %}" class="btn-ghost" style="font-size:0.8rem;padding:0.35rem 0.9rem;">Write Post</a>
+      <a href="{% url 'blog:logout' %}" class="btn-logout-highlight" style="margin-left: auto;">Logout</a>
+    </div>
+  </div>
+
+  {% elif active_tab == 'password' %}
+  <div class="form-card">
+    <h5 style="font-size:1rem;font-weight:700;margin-bottom:1.5rem;letter-spacing:-0.02em;">Change Password</h5>
+    <form method="post">
+      {% csrf_token %}
+      {% for field in password_form %}
+        <div class="form-field-wrap">
+          <label class="form-label-custom">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}<span class="form-error">{{ field.errors|striptags }}</span>{% endif %}
+          {% if field.help_text %}<span style="font-size:0.72rem;color:var(--text-3);display:block;margin-top:0.2rem;">{{ field.help_text }}</span>{% endif %}
+        </div>
+      {% endfor %}
+      <div class="d-flex justify-content-end mt-3">
+        <button type="submit" name="change_password" class="btn-primary-custom">Update Password</button>
+      </div>
+    </form>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

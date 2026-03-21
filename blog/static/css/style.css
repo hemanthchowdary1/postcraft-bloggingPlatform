@@ -1,0 +1,1131 @@
+/* ==============================================
+   MYBLOG — Premium SPA UI Upgrade
+   Fonts: Plus Jakarta Sans + Instrument Serif
+   Base: Bootstrap 5 enhanced
+   ============================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap");
+
+/* ─── CSS Variables ─────────────────────────── */
+:root {
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Instrument Serif", Georgia, serif;
+
+  /* Premium Dark Theme (Deep Zinc) */
+  --bg: #09090b;
+  --bg-card: #18181b;
+  --bg-card-2: #27272a;
+  --bg-input: #09090b;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(99, 102, 241, 0.6);
+
+  /* Vibrant Neon Accents */
+  --accent: #818cf8;
+  --accent-hover: #a5b4fc;
+  --accent-soft: rgba(99, 102, 241, 0.15);
+  --accent-glow: rgba(99, 102, 241, 0.35);
+
+  /* New Rich Gradients */
+  --gradient-1: linear-gradient(135deg, #6366f1 0%, #d946ef 100%);
+  --gradient-2: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+
+  /* High Contrast Text */
+  --text: #fafafa;
+  --text-2: #a1a1aa;
+  --text-3: #71717a;
+  --text-muted: #525252;
+
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* Diffuse Glow Shadows */
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.2);
+
+  --nav-height: 72px;
+
+  /* The Secret to the SPA Feel: Cubic Bezier Physics */
+  --tr: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"] {
+  --bg: #fbfbfb;
+  --bg-card: #ffffff;
+  --bg-card-2: #f4f4f5;
+  --bg-input: #ffffff;
+  --border: rgba(0, 0, 0, 0.06);
+  --border-focus: rgba(99, 102, 241, 0.4);
+
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-soft: rgba(99, 102, 241, 0.08);
+  --accent-glow: rgba(99, 102, 241, 0.2);
+
+  --text: #09090b;
+  --text-2: #52525b;
+  --text-3: #a1a1aa;
+  --text-muted: #d4d4d8;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.1);
+}
+
+/* ─── Base ──────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background 0.5s ease,
+    color 0.5s ease;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-body);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: var(--tr);
+}
+a:hover {
+  color: var(--accent-hover);
+}
+p {
+  color: var(--text-2);
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-3);
+}
+
+/* ─── FLOATING GLASS NAVBAR ─────────────────────── */
+.blog-nav {
+  position: sticky !important;
+  top: 20px !important; /* Floats it off the top edge */
+  z-index: 1000;
+  margin: 0 auto 2rem auto !important;
+  max-width: 1050px !important;
+  height: 68px !important;
+  border-radius: 50px !important;
+  background: rgba(24, 24, 27, 0.6) !important;
+  backdrop-filter: blur(24px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.4) !important;
+  transition: var(--tr) !important;
+}
+
+[data-theme="light"] .blog-nav {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 40px -10px rgba(99, 102, 241, 0.15) !important;
+}
+
+.blog-nav .container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem !important;
+  gap: 1rem;
+}
+
+/* Logo */
+.navbar-brand {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text) !important;
+  letter-spacing: -0.04em;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.navbar-brand .brand-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--gradient-1);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* --- Floating Search Pill (UNIFIED FIX) --- */
+form.nav-search {
+  flex: 1;
+  max-width: 380px;
+  height: 42px !important;
+  display: flex;
+  align-items: center;
+  background: var(--bg-card-2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 50px !important;
+  padding: 0 4px 0 16px !important;
+  transition: var(--tr) !important;
+  overflow: hidden; /* Keeps child elements perfectly contained */
+}
+
+/* 1. Make the entire outer pill a single solid color */
+[data-theme="light"] form.nav-search {
+  background: #f4f4f5 !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+form.nav-search:focus-within {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px var(--accent-soft) !important;
+}
+
+[data-theme="light"] form.nav-search:focus-within {
+  background: #ffffff !important; /* Whole pill turns white on focus */
+}
+
+/* 2. OBLITERATE the ugly white inner box */
+form.nav-search input[type="search"],
+form.nav-search input {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--text) !important;
+  width: 100%;
+  height: 100% !important;
+  padding: 0 !important;
+  outline: none !important;
+  -webkit-appearance: none;
+}
+
+/* 3. Make the Search button completely seamless */
+form.nav-search button {
+  background: transparent !important;
+  color: var(--text-2) !important;
+  border: none !important;
+  font-weight: 800 !important;
+  font-size: 0.85rem !important;
+  padding: 0 1rem !important;
+  height: 100% !important;
+  cursor: pointer;
+  transition: var(--tr) !important;
+  box-shadow: none !important;
+}
+
+[data-theme="light"] form.nav-search button {
+  color: #71717a !important; /* Soft gray text */
+}
+
+form.nav-search button:hover {
+  color: var(--accent) !important;
+  transform: scale(1.05);
+}
+
+/* --- Standardized Nav Links --- */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-nav,
+.nav-username {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem !important;
+  border-radius: 50px !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  color: var(--text-2) !important;
+  transition: all 0.3s ease !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  text-decoration: none !important;
+}
+
+.btn-nav:hover,
+.nav-username:hover {
+  color: var(--text) !important;
+  background: var(--accent-soft) !important;
+}
+
+.btn-nav-accent {
+  background: var(--gradient-1) !important;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: 0 4px 15px var(--accent-glow) !important;
+}
+
+.btn-nav-accent:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 8px 25px var(--accent-glow) !important;
+}
+
+/* --- Perfect Circle Icons (Settings ONLY) --- */
+a.btn-nav[title="Settings"] {
+  width: 42px !important;
+  height: 42px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: var(--text-2) !important;
+  transition: var(--tr) !important;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+[data-theme="light"] a.btn-nav[title="Settings"] {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: var(--text-2) !important;
+}
+
+a.btn-nav[title="Settings"]:hover {
+  background: var(--accent-soft) !important;
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+  transform: translateY(-2px) scale(1.05) !important;
+}
+
+/* --- Bare Icons (Notifications, Theme Toggle, & Bookmarks) --- */
+.theme-toggle,
+.notif-btn,
+a.btn-nav[title="Bookmarks"] {
+  width: 36px !important;
+  height: 36px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important; /* Removes outer circle */
+  border: none !important; /* Removes outer border */
+  color: var(--text-2) !important;
+  transition: var(--tr) !important;
+  cursor: pointer;
+  text-decoration: none !important;
+  border-radius: 50% !important;
+}
+
+[data-theme="light"] .theme-toggle,
+[data-theme="light"] .notif-btn,
+[data-theme="light"] a.btn-nav[title="Bookmarks"] {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-2) !important;
+}
+
+.theme-toggle:hover,
+.notif-btn:hover,
+a.btn-nav[title="Bookmarks"]:hover {
+  color: var(--accent) !important;
+  transform: translateY(-2px) scale(1.05) !important;
+}
+
+/* Style the SVGs */
+.theme-toggle svg,
+.notif-btn svg,
+a.btn-nav[title="Settings"] svg,
+a.btn-nav[title="Bookmarks"] svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.5px !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  fill: none;
+  stroke: currentColor;
+}
+
+/* CSS-driven theme icon swapping */
+.sun-icon {
+  display: none;
+}
+.moon-icon {
+  display: block;
+}
+[data-theme="light"] .sun-icon {
+  display: block;
+}
+[data-theme="light"] .moon-icon {
+  display: none;
+}
+
+/* Fix Notification Red Dot Position */
+.notif-btn {
+  position: relative !important;
+}
+.notif-count {
+  position: absolute !important;
+  top: -2px !important;
+  right: -2px !important;
+  min-width: 18px !important;
+  height: 18px !important;
+  background: var(--danger) !important;
+  color: #fff !important;
+  font-size: 0.65rem !important;
+  font-weight: 800 !important;
+  border-radius: 50px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 2px solid var(--bg-card) !important;
+  z-index: 10 !important;
+}
+
+/* ─── Layout ─────────────────────────────────── */
+.main-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+/* ─── Page Header ─────────────────────────────── */
+.page-header {
+  margin-bottom: 3rem;
+}
+.page-header h2 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+.page-header .subtitle {
+  color: var(--text-3);
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* ─── Flash messages ──────────────────────────── */
+.flash-messages {
+  margin-bottom: 2rem;
+}
+.flash-msg {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: var(--accent-soft);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  color: var(--text);
+  margin-bottom: 0.75rem;
+  animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.flash-msg::before {
+  content: "✓";
+  color: var(--accent);
+  font-weight: 800;
+}
+.flash-msg.error {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+.flash-msg.error::before {
+  content: "!";
+  color: var(--danger);
+}
+
+/* ─── Post Cards ──────────────────────────────── */
+.post-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem;
+  margin-bottom: 1.2rem;
+  transition: var(--tr);
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
+}
+/* The Hover Glow Line */
+.post-card::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-1);
+  border-radius: 20px 20px 0 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.post-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  transform: translateY(-4px) scale(1.01);
+  background: var(--bg-card-2);
+  z-index: 10;
+}
+.post-card:hover::before {
+  transform: scaleX(1);
+}
+
+.post-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.post-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.post-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.post-card-image {
+  width: 140px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+  transition: var(--tr);
+}
+.post-card:hover .post-card-image {
+  transform: scale(1.05);
+}
+
+.post-card-num {
+  font-family: var(--font-body); /* Normal font */
+  font-size: 1.5rem;
+  font-weight: 800; /* Bold numbers */
+  color: var(--border);
+  min-width: 2.5rem;
+  flex-shrink: 0;
+  line-height: 1;
+  padding-top: 5px;
+}
+
+.post-card-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  transition: color var(--tr);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.post-card:hover .post-card-title {
+  color: var(--accent-hover);
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--text-3);
+  font-weight: 600;
+}
+.post-meta a {
+  color: var(--text-2);
+}
+.post-meta a:hover {
+  color: var(--text);
+}
+.post-meta-dot {
+  color: var(--border);
+  font-size: 0.5rem;
+}
+
+.post-excerpt {
+  font-size: 0.95rem;
+  color: var(--text-2);
+  line-height: 1.6;
+  margin: 0.75rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.read-more {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: var(--tr);
+}
+.post-card:hover .read-more {
+  gap: 0.6rem;
+  color: var(--accent-hover);
+}
+
+/* ─── Tags ──────────────────────────────────── */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: var(--tr);
+  text-decoration: none;
+}
+.tag-pill:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.tag-banner {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  color: var(--text-2);
+}
+.tag-banner strong {
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+/* ─── Post Detail ───────────────────────────── */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-3);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: var(--tr);
+}
+.back-link:hover {
+  color: var(--text);
+  transform: translateX(-4px);
+}
+
+.post-detail-title {
+  font-family: var(--font-body); /* Switches back to the normal, clean font */
+  font-size: 3.5rem; /* Slightly sized down so it's not overwhelmingly huge */
+  font-weight: 800; /* Makes it thick and bold */
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.post-cover {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  margin: 2rem 0;
+  box-shadow: var(--shadow);
+}
+
+.post-detail-body {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-2);
+}
+.post-detail-body p {
+  margin-bottom: 1.5rem;
+}
+
+/* Action bar */
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 3rem 0;
+}
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  color: var(--text-2);
+  padding: 0.5rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--tr);
+  text-decoration: none;
+}
+.action-btn:hover {
+  border-color: var(--text);
+  color: var(--bg);
+  background: var(--text);
+  transform: translateY(-2px);
+}
+.action-btn.active {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
+.action-btn.danger:hover {
+  border-color: var(--danger);
+  color: #fff;
+  background: var(--danger);
+}
+
+/* ─── Section Divider ───────────────────────── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  color: var(--text-3);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 3.5rem 0 2rem;
+}
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Comments */
+.comment-item {
+  display: flex;
+  gap: 1.2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.comment-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--gradient-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+.comment-author {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--text);
+  text-decoration: none;
+}
+.comment-author:hover {
+  color: var(--accent-hover);
+}
+.comment-body {
+  font-size: 1rem;
+  color: var(--text-2);
+  margin-top: 0.4rem;
+}
+
+/* Related posts */
+.related-post-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-2);
+  font-size: 1rem;
+  font-weight: 600;
+  transition: var(--tr);
+  text-decoration: none;
+}
+.related-post-link:hover {
+  color: var(--text);
+  padding-left: 0.5rem;
+}
+.related-post-link::before {
+  content: "→";
+  color: var(--accent);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* ─── Forms ─────────────────────────────────── */
+.form-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+}
+
+.form-label-custom {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+/* Override Bootstrap form controls */
+.form-control,
+.form-select,
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+select {
+  background-color: var(--bg-input) !important;
+  border: 2px solid var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--text) !important;
+  padding: 0.8rem 1.2rem !important;
+  font-family: var(--font-body) !important;
+  font-size: 1rem !important;
+  transition: var(--tr) !important;
+  outline: none !important;
+}
+.form-control:focus,
+textarea:focus,
+input:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 4px var(--accent-soft) !important;
+  background-color: var(--bg-card) !important;
+  transform: translateY(-2px);
+}
+
+textarea {
+  resize: vertical !important;
+  min-height: 120px !important;
+}
+
+.form-field-wrap {
+  margin-bottom: 1.5rem;
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  font-weight: 700;
+  display: block;
+}
+
+/* ─── Buttons ───────────────────────────────── */
+.btn-primary-custom,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--gradient-1) !important;
+  border: none !important;
+  border-radius: 50px !important;
+  color: #fff !important;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  transition: var(--tr);
+  text-decoration: none;
+  box-shadow: 0 4px 15px var(--accent-glow) !important;
+}
+.btn-primary-custom:hover,
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 25px var(--accent-glow) !important;
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 2px solid var(--border);
+  border-radius: 50px;
+  color: var(--text-2);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.75rem 1.8rem;
+  cursor: pointer;
+  transition: var(--tr);
+  text-decoration: none;
+}
+.btn-ghost:hover {
+  border-color: var(--text);
+  color: var(--bg);
+  background: var(--text);
+  transform: translateY(-2px);
+}
+
+/* ─── Profile ─────────────────────────────── */
+.profile-header {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 3rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.profile-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-1);
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--gradient-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 2rem;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 8px 25px var(--accent-glow);
+}
+
+/* ─── Settings Tabs ─────────────────────────── */
+.settings-tabs {
+  display: flex;
+  gap: 2rem;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.settings-tab {
+  padding: 0.8rem 0;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-3);
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: var(--tr);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  margin-bottom: -2px;
+}
+.settings-tab:hover {
+  color: var(--text);
+}
+.settings-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ─── Animations ────────────────────────────── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* =============================================
+   SETTINGS & LOGOUT PATCH
+   ============================================= */
+
+/* Slim down the bulky form inputs */
+.form-card input,
+.form-card select,
+.form-card textarea,
+.form-control {
+  padding: 0.6rem 1rem !important;
+  font-size: 0.9rem !important;
+}
+
+/* High-Visibility Logout Button */
+.btn-logout-highlight {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 0.5rem 1.4rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  margin-left: auto;
+}
+
+.btn-logout-highlight:hover {
+  background: #dc2626 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+}
+
+/* =============================================
+   PAGINATION UPGRADE
+   ============================================= */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem; /* Separates the boxes */
+  margin-top: 3rem;
+  border-radius: 0;
+}
+
+/* Individual Page Buttons */
+.pagination .page-item .page-link {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-2) !important;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px !important; /* Overrides Bootstrap's connected borders */
+  padding: 0;
+  transition: var(--tr);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .pagination .page-item .page-link {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: #52525b !important;
+}
+
+/* Hover State */
+.pagination .page-item .page-link:hover {
+  background: var(--bg-card-2) !important;
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px var(--accent-soft);
+}
+
+[data-theme="light"] .pagination .page-item .page-link:hover {
+  background: #fbfbfb !important;
+  color: var(--accent) !important;
+}
+
+/* The Currently Active Page */
+.pagination .page-item.active .page-link {
+  background: var(--gradient-1) !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px var(--accent-glow) !important;
+}
+
+.pagination .page-item.active .page-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px var(--accent-glow) !important;
+}
+
+/* Remove the blue glow outline on click */
+.pagination .page-link:focus {
+  box-shadow: none !important;
+}
