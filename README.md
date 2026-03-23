@@ -1,4 +1,4 @@
-# DevBlog 🚀
+# PostCraft
 
 A full-featured blogging platform built with Django, designed with a modern UI and social interaction features.
 
