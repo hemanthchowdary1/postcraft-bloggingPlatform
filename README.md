@@ -1,14 +1,14 @@
-# PostCraft
+# 📑 PostCraft
 
 A full-featured blogging platform built with Django, designed with a modern UI and social interaction features.
 
 ---
 
-## ✨ Features
+## Features
 - User Authentication (Login / Signup)
 - Email OTP Verification
 - Create, Edit, Delete Posts
-- Like & 🔖 Bookmark System
+- Like & Bookmark System
 - Follow Users
 - Notifications System
 - Search & Tag Filtering
@@ -17,7 +17,7 @@ A full-featured blogging platform built with Django, designed with a modern UI a
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 - Python
 - Django
 - SQLite
@@ -26,27 +26,27 @@ A full-featured blogging platform built with Django, designed with a modern UI a
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
-### 🏠 Home Page
+### Home Page
 ![Home](screenshots/home.png)
 
-### 📄 Post Detail
+### Post Detail
 ![Post](screenshots/post.png)
 ![Post](screenshots/post2.png)
 
-### 👤 Profile Page
+### Profile Page
 ![Profile](screenshots/profile.png)
 
-### 🔔 Notifications Page
+### Notifications Page
 ![Notifications](screenshots/notifications.png)
 
-### ⚙️ Settings Page
+### Settings Page
 ![Settings](screenshots/settings.png)
 
 ---
 
-## ⚙️ Setup
+## Setup
 
 ```bash
 git clone https://github.com/hemanthchowdary1/postcraft-bloggingPlatform.git
