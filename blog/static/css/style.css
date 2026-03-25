@@ -1,17 +1,11 @@
-/* ==============================================
-   MYBLOG — Premium SPA UI Upgrade
-   Fonts: Plus Jakarta Sans + Instrument Serif
-   Base: Bootstrap 5 enhanced
-   ============================================== */
-
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap");
 
-/* ─── CSS Variables ─────────────────────────── */
+/* CSS Variables */
 :root {
   --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
   --font-display: "Instrument Serif", Georgia, serif;
 
-  /* Premium Dark Theme (Deep Zinc) */
+  /* Dark Theme */
   --bg: #09090b;
   --bg-card: #18181b;
   --bg-card-2: #27272a;
@@ -19,13 +13,13 @@
   --border: rgba(255, 255, 255, 0.08);
   --border-focus: rgba(99, 102, 241, 0.6);
 
-  /* Vibrant Neon Accents */
+  /* Neon Accents */
   --accent: #818cf8;
   --accent-hover: #a5b4fc;
   --accent-soft: rgba(99, 102, 241, 0.15);
   --accent-glow: rgba(99, 102, 241, 0.35);
 
-  /* New Rich Gradients */
+  /* Gradients */
   --gradient-1: linear-gradient(135deg, #6366f1 0%, #d946ef 100%);
   --gradient-2: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
 
@@ -49,7 +43,6 @@
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.7);
   --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.2);
-
   --nav-height: 72px;
 
   /* The Secret to the SPA Feel: Cubic Bezier Physics */
@@ -80,7 +73,7 @@
   --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.1);
 }
 
-/* ─── Base ──────────────────────────────────── */
+/* Base */
 *,
 *::before,
 *::after {
@@ -150,7 +143,7 @@ img {
   background: var(--text-3);
 }
 
-/* ─── FLOATING GLASS NAVBAR ─────────────────────── */
+/* FLOATING GLASS NAVBAR */
 .blog-nav {
   position: sticky !important;
   top: 20px !important; /* Floats it off the top edge */
@@ -201,7 +194,7 @@ img {
   box-shadow: 0 0 10px var(--accent-glow);
 }
 
-/* --- Floating Search Pill (UNIFIED FIX) --- */
+/* Floating Search Pill */
 form.nav-search {
   flex: 1;
   max-width: 380px;
@@ -269,7 +262,7 @@ form.nav-search button:hover {
   transform: scale(1.05);
 }
 
-/* --- Standardized Nav Links --- */
+/* Standardized Nav Links */
 .nav-actions {
   display: flex;
   align-items: center;
@@ -309,7 +302,7 @@ form.nav-search button:hover {
   box-shadow: 0 8px 25px var(--accent-glow) !important;
 }
 
-/* --- Perfect Circle Icons (Settings ONLY) --- */
+/* Perfect Circle Icons (Settings ONLY) */
 a.btn-nav[title="Settings"] {
   width: 42px !important;
   height: 42px !important;
@@ -339,7 +332,7 @@ a.btn-nav[title="Settings"]:hover {
   transform: translateY(-2px) scale(1.05) !important;
 }
 
-/* --- Bare Icons (Notifications, Theme Toggle, & Bookmarks) --- */
+/* Bare Icons (Notifications, Theme Toggle, & Bookmarks) */
 .theme-toggle,
 .notif-btn,
 a.btn-nav[title="Bookmarks"] {
@@ -423,7 +416,7 @@ a.btn-nav[title="Bookmarks"] svg {
   z-index: 10 !important;
 }
 
-/* ─── Layout ─────────────────────────────────── */
+/* Layout */
 .main-container {
   max-width: 860px;
   margin: 0 auto;
@@ -432,7 +425,7 @@ a.btn-nav[title="Bookmarks"] svg {
   opacity: 0;
 }
 
-/* ─── Page Header ─────────────────────────────── */
+/* Page Header */
 .page-header {
   margin-bottom: 3rem;
 }
@@ -453,7 +446,7 @@ a.btn-nav[title="Bookmarks"] svg {
   font-weight: 500;
 }
 
-/* ─── Flash messages ──────────────────────────── */
+/* Flash messages */
 .flash-messages {
   margin-bottom: 2rem;
 }
@@ -485,7 +478,7 @@ a.btn-nav[title="Bookmarks"] svg {
   color: var(--danger);
 }
 
-/* ─── Post Cards ──────────────────────────────── */
+/* Post Cards */
 .post-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -619,7 +612,7 @@ a.btn-nav[title="Bookmarks"] svg {
   color: var(--accent-hover);
 }
 
-/* ─── Tags ──────────────────────────────────── */
+/* Tags */
 .tag-pill {
   display: inline-flex;
   align-items: center;
@@ -657,7 +650,7 @@ a.btn-nav[title="Bookmarks"] svg {
   font-size: 1.1rem;
 }
 
-/* ─── Post Detail ───────────────────────────── */
+/* Post Detail */
 .back-link {
   display: inline-flex;
   align-items: center;
@@ -746,7 +739,7 @@ a.btn-nav[title="Bookmarks"] svg {
   background: var(--danger);
 }
 
-/* ─── Section Divider ───────────────────────── */
+/* Section Divider */
 .section-divider {
   display: flex;
   align-items: center;
@@ -825,7 +818,7 @@ a.btn-nav[title="Bookmarks"] svg {
   flex-shrink: 0;
 }
 
-/* ─── Forms ─────────────────────────────────── */
+/* Forms */
 .form-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -890,7 +883,7 @@ textarea {
   display: block;
 }
 
-/* ─── Buttons ───────────────────────────────── */
+/* Buttons */
 .btn-primary-custom,
 .btn-primary {
   display: inline-flex;
@@ -939,7 +932,7 @@ textarea {
   transform: translateY(-2px);
 }
 
-/* ─── Profile ─────────────────────────────── */
+/* Profile */
 .profile-header {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -975,7 +968,7 @@ textarea {
   box-shadow: 0 8px 25px var(--accent-glow);
 }
 
-/* ─── Settings Tabs ─────────────────────────── */
+/* Settings Tabs */
 .settings-tabs {
   display: flex;
   gap: 2rem;
@@ -1003,7 +996,7 @@ textarea {
   border-bottom-color: var(--accent);
 }
 
-/* ─── Animations ────────────────────────────── */
+/* Animations */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -1025,9 +1018,7 @@ textarea {
   }
 }
 
-/* =============================================
-   SETTINGS & LOGOUT PATCH
-   ============================================= */
+/* SETTINGS & LOGOUT PATCH */
 
 /* Slim down the bulky form inputs */
 .form-card input,
@@ -1062,9 +1053,7 @@ textarea {
   box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
 }
 
-/* =============================================
-   PAGINATION UPGRADE
-   ============================================= */
+/* PAGINATION UPGRADE */
 .pagination {
   display: flex;
   justify-content: center;
