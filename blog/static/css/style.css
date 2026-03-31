@@ -236,6 +236,7 @@ form.nav-search input {
   height: 100% !important;
   padding: 0 !important;
   outline: none !important;
+  appearance: none;
   -webkit-appearance: none;
 }
 
@@ -302,7 +303,7 @@ form.nav-search button:hover {
   box-shadow: 0 8px 25px var(--accent-glow) !important;
 }
 
-/* Perfect Circle Icons (Settings ONLY) */
+/* Circle Icons (Settings ONLY) */
 a.btn-nav[title="Settings"] {
   width: 42px !important;
   height: 42px !important;
@@ -342,8 +343,8 @@ a.btn-nav[title="Bookmarks"] {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: transparent !important; /* Removes outer circle */
-  border: none !important; /* Removes outer border */
+  background: transparent !important;
+  border: none !important;
   color: var(--text-2) !important;
   transition: var(--tr) !important;
   cursor: pointer;
@@ -394,7 +395,7 @@ a.btn-nav[title="Bookmarks"] svg {
   display: none;
 }
 
-/* Fix Notification Red Dot Position */
+/* Notification Red Dot Position */
 .notif-btn {
   position: relative !important;
 }
@@ -668,9 +669,9 @@ a.btn-nav[title="Bookmarks"] svg {
 }
 
 .post-detail-title {
-  font-family: var(--font-body); /* Switches back to the normal, clean font */
-  font-size: 3.5rem; /* Slightly sized down so it's not overwhelmingly huge */
-  font-weight: 800; /* Makes it thick and bold */
+  font-family: var(--font-body);
+  font-size: 3.5rem;
+  font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.2;
   color: var(--text);
@@ -1057,7 +1058,7 @@ textarea {
 .pagination {
   display: flex;
   justify-content: center;
-  gap: 0.5rem; /* Separates the boxes */
+  gap: 0.5rem;
   margin-top: 3rem;
   border-radius: 0;
 }
@@ -1117,4 +1118,78 @@ textarea {
 /* Remove the blue glow outline on click */
 .pagination .page-link:focus {
   box-shadow: none !important;
+}
+
+/* MOBILE RESPONSIVENESS (Phones & Small Tablets) */
+@media (max-width: 768px) {
+  
+  /* 1. Navbar Resizing & Wrapping */
+  .blog-nav {
+    height: auto !important;
+    padding: 12px 0 !important;
+    border-radius: 24px !important;
+  }
+  
+  .blog-nav .container {
+    flex-wrap: wrap; /* Allows elements to drop to a new row */
+    justify-content: space-between;
+  }
+
+  .navbar-brand { font-size: 1.3rem; }
+
+  /* Push the Search Bar + Notif group to its own full-width row */
+  .blog-nav .container > .d-flex.align-items-center {
+    order: 3; /* Forces it below the logo and actions */
+    width: 100%;
+    max-width: 100% !important;
+    margin-top: 12px;
+  }
+
+  /* Compact the right-side actions */
+  .nav-actions {
+    order: 2;
+    gap: 2px;
+  }
+  
+  /* Hide text labels on mobile to save space */
+  .nav-username { display: none !important; } 
+  .btn-nav.btn-nav-accent { 
+    padding: 0.3rem 0.8rem !important; 
+    font-size: 0.8rem !important; 
+  }
+
+  /* 2. Typography Scaling */
+  .page-header h2, .post-detail-title { 
+    font-size: 2.2rem !important; /* Shrinks giant desktop text */
+  }
+  .page-header { margin-bottom: 2rem; }
+
+  /* 3. Post Cards Stacking */
+  .post-card .d-flex.align-items-start { 
+    flex-direction: column; /* Stacks image below text */
+  }
+  .post-card-num { 
+    display: none; /* Hides the big numbers on mobile */
+  }
+  .post-card-image { 
+    width: 100%; 
+    height: 200px; 
+    margin-top: 1rem; 
+  }
+
+  /* 4. Profile Page Centering */
+  .profile-header .d-flex { 
+    flex-direction: column; 
+    align-items: center !important; 
+    text-align: center; 
+  }
+  .profile-header .d-flex > div { 
+    width: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+  }
+  .d-flex.gap-4.mt-3 {
+    justify-content: center;
+  }
 }

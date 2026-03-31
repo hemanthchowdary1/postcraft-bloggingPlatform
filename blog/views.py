@@ -16,7 +16,6 @@ from django.http import JsonResponse
 from decouple import config
 
 
-
 def post_list(request, tag_slug=None):
     post_list = Post.published.all()
     tag = None
@@ -109,6 +108,8 @@ def post_comment(request, post_id):
                 notif_type=Notification.Type.COMMENT,
                 post=post
             )
+    else:
+        messages.error(request, "Your comment could not be posted. Please try again.")
 
     return redirect(post.get_absolute_url())
 
@@ -117,7 +118,7 @@ def post_comment(request, post_id):
 def like_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
-    
+
     like, created = Like.objects.get_or_create(user=request.user, post=post)
 
     if not created:
@@ -135,7 +136,7 @@ def like_post(request, post_id):
 
     if is_ajax:
         return JsonResponse({'liked': liked, 'total_likes': post.total_likes()})
-        
+
     return redirect(post.get_absolute_url())
 
 
@@ -143,18 +144,18 @@ def like_post(request, post_id):
 def bookmark_post(request, post_id):
     post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
-    
+
     bookmark, created = Bookmark.objects.get_or_create(user=request.user, post=post)
-    
+
     if not created:
         bookmark.delete()
         bookmarked = False
     else:
         bookmarked = True
-        
+
     if is_ajax:
         return JsonResponse({'bookmarked': bookmarked})
-        
+
     return redirect(post.get_absolute_url())
 
 
@@ -277,15 +278,13 @@ def signup_view(request):
             email = form.cleaned_data.get("email")
             domain = email.split("@")[-1]
 
-            # Check MX records — does this domain actually receive email?
             try:
                 import dns.resolver
                 dns.resolver.resolve(domain, "MX")
             except Exception:
-                form.add_error("email", f"'{domain}' does not appear to be a valid email domain. Please use a real email address.")
+                form.add_error("email", f"'{domain}' does not appear to be a valid email domain.")
                 return render(request, "signup.html", {"form": form})
 
-            # Domain is real — save user as inactive until OTP verified
             user = form.save(commit=False)
             user.is_active = False
             user.save()
@@ -321,22 +320,33 @@ def verify_otp(request):
     if not user_id:
         return redirect("blog:signup")
 
-    user = User.objects.get(id=user_id)
-    otp_obj = OTPVerification.objects.get(user=user)
+    # Fixed: use get_object_or_404 instead of bare .get() to avoid crashes
+    user = get_object_or_404(User, id=user_id)
+    otp_obj = get_object_or_404(OTPVerification, user=user)
 
     if request.method == "POST":
+        # Check lockout before even trying
+        if otp_obj.is_locked_out():
+            return render(request, "verify_otp.html", {
+                "email": user.email,
+                "error": "Too many failed attempts. Please sign up again."
+            })
+
         entered_otp = request.POST.get("otp")
         if otp_obj.verify_otp(entered_otp):
-            # Activate the user now that email is confirmed
             user.is_active = True
             user.save()
             login(request, user)
             del request.session["otp_user_id"]
             return redirect("blog:post_list")
         else:
+            attempts_left = 5 - otp_obj.failed_attempts
+            error = "Invalid or expired OTP. Please try again."
+            if attempts_left <= 2:
+                error += f" ({attempts_left} attempt{'s' if attempts_left != 1 else ''} left)"
             return render(request, "verify_otp.html", {
                 "email": user.email,
-                "error": "Invalid or expired OTP. Please try again."
+                "error": error
             })
 
     return render(request, "verify_otp.html", {"email": user.email})
