@@ -297,10 +297,11 @@ def signup_view(request):
                 send_mail(
                     "OTP Verification — MyBlog",
                     f"Your OTP code is: {otp}\n\nThis code expires in 10 minutes.",
-                    config('EMAIL_HOST_USER'),
+                    'onboarding@resend.dev',
                     [email],
                     fail_silently=False,
                 )
+                
             except Exception:
                 user.delete()
                 form.add_error("email", "Could not send OTP. Please check your email and try again.")

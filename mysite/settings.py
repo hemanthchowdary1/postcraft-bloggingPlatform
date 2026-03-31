@@ -100,7 +100,7 @@ EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
 EMAIL_HOST_USER = 'resend'
 EMAIL_HOST_PASSWORD = config('RESEND_API_KEY')
-DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')
+DEFAULT_FROM_EMAIL = 'onboarding@resend.dev'
 
 LOGIN_URL = 'blog:login_view'
 LOGIN_REDIRECT_URL = 'blog:post_list'
