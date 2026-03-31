@@ -14,7 +14,7 @@ from django.utils.text import slugify
 from django.db.models import Q
 from django.http import JsonResponse
 from decouple import config
-
+import resend
 
 def post_list(request, tag_slug=None):
     post_list = Post.published.all()
@@ -294,14 +294,14 @@ def signup_view(request):
             otp = otp_obj.generate_otp()
 
             try:
-                send_mail(
-                    "OTP Verification — MyBlog",
-                    f"Your OTP code is: {otp}\n\nThis code expires in 10 minutes.",
-                    'onboarding@resend.dev',
-                    [email],
-                    fail_silently=False,
-                )
-                
+                resend.api_key = config('RESEND_API_KEY')
+                resend.Emails.send({
+                    "from": "onboarding@resend.dev",
+                    "to": [email],
+                    "subject": "OTP Verification — MyBlog",
+                    "text": f"Your OTP code is: {otp}\n\nThis code expires in 10 minutes.",
+                })
+
             except Exception:
                 user.delete()
                 form.add_error("email", "Could not send OTP. Please check your email and try again.")
