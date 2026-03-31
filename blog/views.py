@@ -320,7 +320,6 @@ def verify_otp(request):
     if not user_id:
         return redirect("blog:signup")
 
-    # Fixed: use get_object_or_404 instead of bare .get() to avoid crashes
     user = get_object_or_404(User, id=user_id)
     otp_obj = get_object_or_404(OTPVerification, user=user)
 

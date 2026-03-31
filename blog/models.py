@@ -104,7 +104,6 @@ class OTPVerification(models.Model):
             self.save()
             return True
 
-        # Wrong code — increment failed attempts
         self.failed_attempts += 1
         self.save()
         return False
