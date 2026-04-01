@@ -47,6 +47,7 @@ pytz==2019.1
 redis==7.4.0
 requests==2.33.1
 requests-oauthlib==1.2.0
+resend==2.26.0
 service-identity==24.2.0
 six==1.17.0
 sqlparse==0.5.5
